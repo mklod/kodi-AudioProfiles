@@ -9,6 +9,8 @@ Based on v2.1.2 by pkscout / notoco / CtrlGy / Regss.
 ### Per-Profile Audio Delay
 Each profile now saves and restores its own audio delay value. This is essential for setups where different outputs have different latencies (e.g. HDMI to AVR = 0 ms, Bluetooth speaker = 275 ms).
 
+> **Note on Bluetooth audio delay:** The typical issue with Bluetooth in Kodi is that audio arrives **late** — you see lips moving before hearing the sound (audio out of sync / OOS). To correct this, apply a **positive** audio delay value (e.g. `0.300`). This tells Kodi to delay the video to match the late-arriving audio.
+
 - When saving a profile, the addon prompts you to enter the delay in seconds (e.g. `0.275` or `-0.1`), since Kodi resets audiodelay to 0 whenever playback stops.
 - On profile switch, the saved delay is restored — during playback it uses `Player.SetAudioDelay` (the only method Kodi respects mid-playback), otherwise `Settings.SetSettingValue`.
 - On every `Player.OnPlay` event, the delay is automatically re-applied after a short settle period, because Kodi resets it to 0 at the start of each playback.
